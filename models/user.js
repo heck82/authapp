@@ -40,8 +40,7 @@ module.exports.CreateUser = function(body, cb) {
     });
     newUser.save(function(err, newUser) {
         if (err) {
-            console.log(err.message);
-            return cb(err.message);
+            return cb(err);
         } else {
             console.log("Created new user: " + body.name);
             return cb("successfuly created: " + newUser.name);

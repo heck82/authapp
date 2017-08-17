@@ -9,15 +9,17 @@ router.route('/')
         switch (req.body.action) {
             case "CreateUser":
                 console.log("trying to create user: " + req.body.name);
-                require('../models/user').CreateUser(req.body, function(message) {
-                    res.send(message);
+                require('../models/user').CreateUser(req.body, function(err) {
+                    if (err.code == 11000) res.send("email already in use!");
+                    else res.send(err.message);
                 });
                 break;
             case "Login":
-                console.log("comparing user: " + req.body);
+                console.log("comparing user: " + req.body.name);
+                res.send(req.body);
                 break;
             default:
-                console.log("send error");
+                console.log("POST send error");
         }
         // res.send(req.body);
     });

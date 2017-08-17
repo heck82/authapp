@@ -5,6 +5,9 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/auth', {
     useMongoClient: true
+}, function(err) {
+    if (err) console.log(err.message);
+    else console.log('connected to database');
 });
 mongoose.Promise = global.Promise;
 
