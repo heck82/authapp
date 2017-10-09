@@ -10,7 +10,6 @@ mongoose.connect('mongodb://localhost/auth', {
     else console.log('connected to database');
 });
 mongoose.Promise = global.Promise;
-
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

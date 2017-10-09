@@ -3,20 +3,23 @@ var mongoose = require('mongoose');
 var UserSchema = mongoose.Schema({
     name: {
         type: String,
+        validate: {
+            validator: function(v) {
+                return /^[^!@#$%^&*()~\,\?\|/\\\+\=]+$/.test(v);
+            },
+            message: '{VALUE} is not a valid name'
+        },
         required: [true, "can't be blank"]
     },
     email: {
         type: String,
         required: [true, "can't be blank"],
-        // validate: {
-        //     isAsync: true,
-        //     validator: function(v, cb) {
-        //         User.find({ email: v }, function(err, docs) {
-        //             cb(docs.length == 0);
-        //         });
-        //     },
-        //     message: 'User already exists!'
-        // },
+        validate: {
+            validator: function(v) {
+                return /^\S+@\S+\.\w+$/.test(v);
+            },
+            message: "{VALUE} Invalid email"
+        },
         unique: true
     },
     password: {
@@ -38,12 +41,12 @@ module.exports.CreateUser = function(body, cb) {
         email: body.email,
         password: body.password
     });
-    newUser.save(function(err, newUser) {
+    newUser.save(function(err) {
         if (err) {
             return cb(err);
         } else {
             console.log("Created new user: " + body.name);
-            return cb("successfuly created: " + newUser.name);
+            return cb("successfuly created: " + body.name);
         }
     });
 };
