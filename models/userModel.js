@@ -24,7 +24,13 @@ var UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "can't be blank"]
+        required: [true, "can't be blank"],
+        validate: {
+            validator: function(v) {
+                return /^(?=.*\d)(?=.*[A-z]).{8,32}$/.test(v);
+            },
+            message: "Invalid pass"
+        }
     }
 });
 

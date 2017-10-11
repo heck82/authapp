@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', require('./routes/user'));
+app.use('/', require('./routes/userRoute'));
 
 app.listen(3300, function(err) {
     if (!err) console.log("listening on 3300");
